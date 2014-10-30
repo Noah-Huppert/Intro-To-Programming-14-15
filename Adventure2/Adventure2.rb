@@ -7,13 +7,6 @@ Rooms
 	4	5
 		6	7
 		8	9
-	
-Room Class
-	new(id, nextTo, elements)
-	
-	int id
-	int[] nextTo
-	RoomElement[] elements
 =end
 
 @rooms = {
@@ -129,7 +122,7 @@ while @beingPlayed
 			puts "You find a map!"
 		elsif element == "exit"
 			if @player.hasItem "key"
-				puts "Congratulations, you found the exit!\nGame Over!"
+				puts "Congratulations, you found the exit!\n********** Game Over **********\nYou win"
 				@beingPlayed = false
 				exit
 			else
@@ -144,7 +137,11 @@ while @beingPlayed
 		elsif element == "discoBall"
 			puts "You see a light switch and flip it. A disco ball lowers down from the ceiling and some funky music starts playing"
 		elsif element == "talkingHorse"
-			puts "You find a horse and it starts talking. It tells you that you need a key to open the exit door"
+			if @player.hasItem "key"
+				puts "The horse sees that you have a key and asumes you know there is a matching door"
+			else
+				puts "You find a horse and it tells you that you need a key to open the exit door"
+			end
 		elsif element == "genie"
 			if @player.hasItem "key"
 				puts "You see a genie. He sees that you have a key and tells you that the exit is in room #{exitRoom}"
