@@ -34,6 +34,8 @@ class PhysicsObject < GameObject
 				end
 					
 				@velY *= -1
+				
+				object.onCollide
 			end
 		end
 		

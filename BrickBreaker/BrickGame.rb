@@ -11,10 +11,16 @@ class BrickGame < Gosu::Window
 		@paddle = Paddle.new(self)
 		@ball = Ball.new(self)
 		
-		@bricks = [Brick.new(self, 0, 100)]
+		@bricks = []
+		tempBricksX = 0
 		
-		while @bricks[@bricks.length - 1].x <= self.width
-			@bricks.push Brick.new self, [@bricks.length - 1].x + 100, 100
+		while tempBricksX <= self.width
+			brick = Brick.new(self, tempBricksX, 100)
+			@bricks.push brick
+			
+			@ball.checkFor brick
+			
+			tempBricksX += 80
 		end
 		
 		@ball.checkFor(@paddle)
