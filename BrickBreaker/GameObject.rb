@@ -14,4 +14,5 @@ class GameObject
 	def draw
 		@image.draw(@x - @width / 2, @y - @height / 2, 1)
 	end#draw
+	
 end#GameObject
