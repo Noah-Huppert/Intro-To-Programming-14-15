@@ -24,27 +24,39 @@ class PhysicsObject < GameObject
 			
 			if distX.abs <= threshX and distY.abs <= threshY
 				if distX >= 0 and @velX == 0#On the right side
+					object.onCollide "object_right"
 					@velX = 1
 				elsif distX >= 0 and @velX < 0#On the right side, going wrong direction
+					object.onCollide "object_right"
 					@velX *= -1
 				elsif distX <= 0 and @velX == 0#On the left side
+					object.onCollide "object_left"
 					@velX = -1
 				elsif distX <= 0 and @velX > 0#On the left side, going wrong direction
+					object.onCollide "object_left"
 					@velX *= -1
+				else
+					object.onCollide "object_center"
 				end
 					
 				@velY *= -1
-				
-				object.onCollide
 			end
 		end
 		
 		#Check window bounds
-		if @x >= @window.width or @x <= 0
+		if @x >= @window.width 
+			onCollide "window_right"
+			@velX *= -1
+		elsif @x <= @width / 2
+			onCollide "window_left"
 			@velX *= -1
 		end
 		
-		if @y >= @window.height or @y <= 0
+		if @y >= @window.height 
+			onCollide "window_bottom"
+			@velY *= -1
+		elsif @y <= @height / 2
+			onCollide "window_top"
 			@velY *= -1
 		end
 		
@@ -55,4 +67,8 @@ class PhysicsObject < GameObject
 	def checkFor(o)
 		@checkFor.push o
 	end#checkFor
+	
+	def stopCheckingFor(o)
+		@checkFor.delete o
+	end#stopCheckingFor
 end

@@ -29,7 +29,7 @@ class GameObject
 		end
 	end#touching
 	
-	def onCollide
+	def onCollide(side = [])
 	
 	end#onCollide
 	
