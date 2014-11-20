@@ -37,7 +37,7 @@ class BrickGame < Gosu::Window
 	end#initialize
 	
 	def draw
-		if @lives > 0
+		if @lives > 0 and @bricks.length > 0
 			@paddle.draw
 			@ball.draw
 		
@@ -53,7 +53,7 @@ class BrickGame < Gosu::Window
 	end#draw
 	
 	def update
-		if @lives > 0
+		if @lives > 0 and @bricks.length > 0
 			if button_down?(Gosu::KbRight)
 				@paddle.move_right
 			end

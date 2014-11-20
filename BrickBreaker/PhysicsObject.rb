@@ -19,8 +19,10 @@ class PhysicsObject < GameObject
 			distX = @x - object.x
 			distY = @y - object.y
 			
-			threshX = object.width / 2
-			threshY = object.height / 2
+			threshX = object.width / 2 + @width / 2
+			threshY = object.height / 2 + @height / 2
+			
+			puts "#{@x} #{object.x} | #{threshX}"
 			
 			if distX.abs <= threshX and distY.abs <= threshY
 				if distX >= 0 and @velX == 0#On the right side
