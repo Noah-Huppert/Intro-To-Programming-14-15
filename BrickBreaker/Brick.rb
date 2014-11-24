@@ -1,8 +1,8 @@
-require "./GameObject"
+require "./PhysicsObject"
 
-class Brick < GameObject
+class Brick < PhysicsObject
 	def initialize(window, x, y)
-		super(window, x, y, 60, 20, "res/img/brick.png")
+		super(window, x, y, 0, 0.01, 60, 20, "res/img/brick.png")
 	end#initialize
 	
 	def onCollide(side = "")

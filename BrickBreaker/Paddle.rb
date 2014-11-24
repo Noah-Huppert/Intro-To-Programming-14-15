@@ -7,13 +7,13 @@ class Paddle < GameObject
 	
 	def move_right
 		if (@x + 5) <= (@window.width - @width / 2)
-			@x += 5
+			@x += 10
 		end
 	end#move_right
 	
 	def move_left
 		if (@x + 5) >= @width / 2
-			@x -= 5
+			@x -= 10
 		end
 	end
 end#Paddle
