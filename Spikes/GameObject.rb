@@ -1,8 +1,10 @@
 class GameObject
-	attr_accessor :x, :y, :width, :height, :image
+	attr_accessor :id, :x, :y, :width, :height, :image
 	
-	def initialize(window, x, y, width, height, image)
+	def initialize(window, id, x, y, width, height, image)
 		@window = window
+		
+		@id = id
 		
 		@x = x
 		@y = y
@@ -29,7 +31,7 @@ class GameObject
 		end
 	end#touching
 	
-	def onCollide(side = "", objectID = "")
+	def onCollide(side = [])
 	
 	end#onCollide
 	
