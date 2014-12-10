@@ -1,15 +1,16 @@
-require "./models/GameObject"
+require "./models/super/GameObject"
 
 class PhysicsObject < GameObject
 	attr_accessor :speed, :gravity, :velX, :velY
 	
-	def initialize(window, id, x, y, width, height, image)
-		super(window, id, x, y, width, height, image)
+	def initialize(window, id, x, y, rotation, width, height, image)
+		super(window, id, x, y, rotation, width, height, image)
 		@window = window
 		
-		@speed = 3
+		@speed = 2
+		@maxSpeed = 6
 		
-		@gravity = 0.1
+		@gravity = 0.2
 		
 		@velX = 0
 		@velY = 0
@@ -64,7 +65,7 @@ class PhysicsObject < GameObject
 		end
 		
 		#Gravity
-		if @velY < @speed
+		if @velY < @maxSpeed
 			@velY += @gravity
 		end
 		
