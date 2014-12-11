@@ -3,6 +3,8 @@ require "./models/gameObjects/Bird"
 require "./models/gameObjects/Spike"
 
 class GameScreen < Screen
+	attr_accessor :score
+	
 	def initialize(window)
 		super(window)
 		
@@ -15,6 +17,8 @@ class GameScreen < Screen
 		@spikesRight = []
 		@spikesTopBottom = []
 		
+		@scoreFont = Gosu::Font.new(@window, "System", 200)
+		
 		placeSpikes "left"
 		placeSpikes "right"
 		placeSpikes "topbottom"
@@ -22,13 +26,21 @@ class GameScreen < Screen
 	
 	def activeUpdate
 		if @window.button_down?(Gosu::KbSpace)
-			@bird.velY = -2
+			@bird.velY = -3
 		end
 		
 		@bird.update
 	end#activeUpdate
 	
 	def activeDraw
+		scoreX = (@window.width / 2) - 50
+		
+		if @score >= 10
+			scoreX = (@window.width / 2) - 115
+		end
+		
+		@scoreFont.draw("#{@score}", scoreX, (@window.height / 2) - 100, 0, 1, 1, Gosu::Color.argb(0xff808080))
+		
 		@spikesLeft.each do |spike|
 			spike.draw
 		end
@@ -60,6 +72,10 @@ class GameScreen < Screen
 			spikesCount = 0
 			spikesQuota = 3 + (@score / 5).floor#Adds another spike for every 5 points
 			
+			if spikesQuota > 10#After 10 spikes it becomes impossible
+				spikesQuota  = 10
+			end
+			
 			spikes = []
 			
 			if direction == "left"
@@ -78,17 +94,31 @@ class GameScreen < Screen
 				x = @window.width
 			end
 			
-			y = 30
-			
-			while y <= @window.height and spikesCount < spikesQuota
-				spike = Spike.new @window, x, y, rotation
-				spikes.push spike
+			while spikesCount < spikesQuota
+				y = rand(@window.height)
 				
-				@bird.checkFor spike
+				notToClose = true
 				
-				y += 30
-				spikesCount += 1
-			end 
+				if y <= 40
+					notToClose = false
+				elsif y >= @window.height - 40
+					notToClose = false
+				else
+					spikes.each do |spike|
+						spikeDif = (spike.y - y).abs
+						if spikeDif <= 35
+							notToClose = false
+						end
+					end
+				end
+				
+				if notToClose
+					spike = Spike.new @window, x, y, rotation
+					@bird.checkFor spike
+					spikes.push spike
+					spikesCount += 1
+				end
+			end
 			
 			if direction == "left"
 				@spikesLeft = spikes
@@ -96,8 +126,8 @@ class GameScreen < Screen
 				@spikesRight = spikes
 			end
 		else
-			x = 30
-			y = 0
+			x = 35
+			y = 20
 			rotation = 90
 			
 			while x <= @window.width
@@ -106,10 +136,10 @@ class GameScreen < Screen
 				
 				@bird.checkFor spike
 				
-				x += 30
+				x += 25
 			end
 			
-			x = 30
+			x = 35
 			y = @window.height
 			rotation = 270
 			
@@ -119,7 +149,7 @@ class GameScreen < Screen
 							
 				@bird.checkFor spike
 				
-				x += 30
+				x += 25
 			end
 		end
 	end#placeSpikes

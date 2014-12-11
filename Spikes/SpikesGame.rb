@@ -1,4 +1,4 @@
-require "gosu"
+require "gosu" 
 require "./models/screens/GameScreen"
 require "./models/screens/GameOverScreen"
 
@@ -26,4 +26,4 @@ class SpikesGame < Gosu::Window
 end#SpikesGame
 
 spikeGame = SpikesGame.new
-spikeGame.show
+spikeGame.show  
