@@ -47,7 +47,12 @@ class PhysicsObject < GameObject
 			end
 		end
 		
-		#Check window bounds
+		checkForWindowBounds
+		applyGravity
+		
+	end#update
+	
+	def checkForWindowBounds
 		if @x >= @window.width - (@width / 2)
 			onCollide "window_right"
 			@velX *= -1
@@ -55,7 +60,7 @@ class PhysicsObject < GameObject
 			onCollide "window_left"
 			@velX *= -1
 		end
-		
+			
 		if @y >= @window.height - (@height / 2)
 			onCollide "window_bottom"
 			@velY *= -1
@@ -63,15 +68,16 @@ class PhysicsObject < GameObject
 			onCollide "window_top"
 			@velY *= -1
 		end
-		
-		#Gravity
+	end#checkForWindowBounds
+	
+	def applyGravity
 		if @velY < @maxSpeed
 			@velY += @gravity
 		end
 		
 		@x += @speed * @velX
 		@y += @speed * @velY
-	end#update
+	end#applyGravity
 	
 	def checkFor(o)
 		@checkFor.push o

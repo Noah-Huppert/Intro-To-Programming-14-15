@@ -7,8 +7,7 @@ class Spike < GameObject
 	
 	def onCollide(side = "", id = "")
 		if id == "bird"
-			@window.gameScreen.active = false
-			@window.gameOverScreen.active = true
+			@window.screenManager.activate "gameOverScreen"
 		end
 	end#onCollide
 end#bird

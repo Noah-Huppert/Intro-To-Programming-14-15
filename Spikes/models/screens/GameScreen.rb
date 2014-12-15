@@ -19,8 +19,6 @@ class GameScreen < Screen
 		
 		@scoreFont = Gosu::Font.new(@window, "System", 200)
 		
-		placeSpikes "left"
-		placeSpikes "right"
 		placeSpikes "topbottom"
 	end#initialize
 	
@@ -59,8 +57,20 @@ class GameScreen < Screen
 	def hitSide(side)
 		if side == "left"
 			placeSpikes "right"
+			
+			@spikesLeft.each do |spike|
+				@bird.stopCheckingFor spike
+			end
+			
+			@spikesLeft = []
 		else
 			placeSpikes "left"
+			
+			@spikesRight.each do |spike|
+				@bird.stopCheckingFor spike
+			end
+			
+			@spikesRight = []
 		end
 		
 		@score += 1

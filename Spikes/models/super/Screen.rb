@@ -4,7 +4,7 @@ class Screen
 	def initialize(window)
 		@window = window
 		
-		@active = true
+		@active = false
 	end#initialize
 	
 	def update

@@ -7,9 +7,9 @@ class Bird < PhysicsObject
 	
 	def onCollide(side = "", id = "")
 		if side == "window_left"
-			@window.gameScreen.hitSide "left"
+			@window.screenManager.getScreen("gameScreen").hitSide "left"
 		elsif side == "window_right"
-			@window.gameScreen.hitSide "right"
+			@window.screenManager.getScreen("gameScreen").hitSide "right"
 		end
 	end#onCollide
 end#bird
