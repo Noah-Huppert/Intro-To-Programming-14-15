@@ -9,14 +9,7 @@ class SpikesGame < Gosu::Window
 	
 	def initialize
 		super 400, 600, false
-		
-=begin
-TODO:
-	Convert all positions to Vector2
-		GameObject
-		PhysicsObject
-	Make AdvancedPhysicsObject
-=end
+		self.caption = "Spikes"
 		
 		@screenManager = ScreenManager.new self
 		

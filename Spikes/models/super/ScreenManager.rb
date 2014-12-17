@@ -21,10 +21,14 @@ class ScreenManager
 	end
 	
 	def addScreen(name, screen)
-		if !@screens.has_key? name
+		if @screens[name].nil?
 			@screens[name] = screen
 		end
 	end#addScreen
+	
+	def setScreen(name, screen)
+		@screens[name] = screen
+	end#setScreen
 	
 	def removeScreen(name)
 		@screens.delete name
